@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    # specify dockerfile to use for build
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    # volumes mapping
+    volumes:
+      - /app/node_modules
+      - .:/app
+  tests:
+    # container dedicated to running tests
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    # volumes mapping
+    volumes:
+      - /app/node_modules
+      - .:/app
+    # override container default command
+    command: ["npm","run","test"]
